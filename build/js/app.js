@@ -108,59 +108,19 @@
 //10. Запросіть дату (день, місяць, рік) і виведіть наступну дату.
 //Врахуйте можливість переходу на наступний місяць, рік,
 //а також високосний рік.
-//let isDay: boolean = true
-//let day: number
-//while (isDay) {
-//	const userDay: boolean = +prompt("Enter your day")
-//	if (userDay < 1 || userDay > 31 || isNaN(userDay)) {
-//		alert("Something went wrong. Try again.")
-//	} else {
-//		day = userDay
-//	}
-//}
-//let isMonth: boolean = true
-//let month: number
-//while (isMonth) {
-//	const userMonth: boolean = +prompt("Enter your month")
-//	if (userMonth < 1 || userMonth > 12 || isNaN(userMonth)) {
-//		alert("Something went wrong. Try again.")
-//	} else {
-//		month = userMonth
-//		isMonth = false
-//	}
-//}
-//let isYear: boolean = true
-//let year: number
-//while (isYear) {
-//	const userMonth: boolean = +prompt("Enter your year")
-//	if (userMonth < 1 || userMonth > 12 || isNaN(userMonth)) {
-//		alert("Something went wrong. Try again.")
-//	} else {
-//		year = userMonth
-//	}
-//}
 let day;
 let month;
 let year;
 let isUserDate = true;
 while (isUserDate) {
     const userDate = prompt("Enter your date: dd.mm.yyyy");
+    day = +userDate.slice(0, 2);
+    month = +userDate.slice(3, 5);
+    year = +userDate.slice(6, 10);
     if (userDate[2] !== "." && userDate[5] !== ".") {
         alert("Something went wrong. Try again.");
     }
-    else {
-        day = +userDate.slice(0, 2);
-        month = +userDate.slice(3, 5);
-        year = +userDate.slice(6, 10);
-        isUserDate = false;
-    }
-}
-console.log(day);
-console.log(month);
-console.log(year);
-let isDay = true;
-while (isDay) {
-    if (isNaN(day) || isNaN(month) || isNaN(year)) {
+    else if (isNaN(day) || isNaN(month) || isNaN(year)) {
         alert("Something went wrong. Try again.");
     }
     else if (day < 1 || month < 1 || year < 1) {
@@ -209,6 +169,52 @@ while (isDay) {
         alert("Something went wrong. Try again.");
     }
     else {
-        isDay = false;
+        isUserDate = false;
     }
 }
+switch (day) {
+    case 28:
+        if (month == 2) {
+            day = 1;
+            month += 1;
+        }
+        break;
+    case 29:
+        if (month == 2) {
+            day = 1;
+            month += 1;
+        }
+        break;
+    case 30:
+        if (month == 4 || month == 6 || month == 9 || month == 11) {
+            day = 1;
+            month += 1;
+        }
+        break;
+    case 31:
+        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10) {
+            day = 1;
+            month += 1;
+        }
+        else if (month == 12) {
+            day = 1;
+            month = 1;
+            year += 1;
+        }
+        break;
+    default:
+        day += 1;
+        break;
+}
+function tomorrowDate(day, month, year) {
+    if (day < 10 && month < 10) {
+        alert("Tomorrow " + "0" + day + "." + "0" + month + "." + year);
+    }
+    else if (day >= 10 && month < 10) {
+        alert("Tomorrow " + day + "." + "0" + month + "." + year);
+    }
+    else if (day >= 10 && month >= 10) {
+        alert("Tomorrow " + day + "." + month + "." + year);
+    }
+}
+tomorrowDate(day, month, year);
