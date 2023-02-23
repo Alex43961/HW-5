@@ -174,9 +174,12 @@ while (isUserDate) {
 }
 switch (day) {
     case 28:
-        if (month == 2) {
+        if (month == 2 && year % 4 != 0) {
             day = 1;
             month += 1;
+        }
+        else if (month == 2 && year % 4 == 0) {
+            day += 1;
         }
         break;
     case 29:
